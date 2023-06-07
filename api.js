@@ -8,8 +8,14 @@ module.exports = function (app) {
 
   app.route('/api/check')
     .post((req, res) => {
-      console.log(req.body)
+      
      let puzzleString = req.body.puzzle
+    let value = req.body.value
+    let row = req.body.coordinate[0].toLowerCase()
+    let column = req.body.coordinate[1]
+
+
+      
     let result = solver.validate(puzzleString)
       
       if (result == "Invalid characters") {
@@ -33,6 +39,29 @@ if (valNum.test(req.body.coordinate[1]) == false){
 if (valNum.test(req.body.value) == false){
   return res.json({ error: 'Invalid value'})
 }
+
+/*check placements*/
+
+let rowcheck = solver.checkRowPlacement(puzzleString, row, column, value)
+let colcheck = solver.checkColPlacement(puzzleString, row, column, value)
+let regioncheck = solver.checkRegionPlacement(puzzleString, row, column, value)
+let conflict = []
+if (rowcheck == 'true') {
+  conflict.push('row')
+}
+if (colcheck == 'true') {
+  conflict.push('column')
+}
+if (regioncheck == 'true') {
+  conflict.push('region')
+}
+if (rowcheck != 'true' && colcheck != 'true' && regioncheck != 'true') {
+  return res.json( { "valid": true })
+}
+else {
+  return res.json( { "valid": false, "conflict":  conflict  })
+}
+
       
     });
   
