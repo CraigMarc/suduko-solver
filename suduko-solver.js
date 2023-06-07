@@ -72,7 +72,7 @@ let colcheck = ""
 
 for (let i = 0; i < 9; i++) {
  
-  if (puzzle[col[column - 1][i]] == value) {
+ if (puzzle[col[column][i] - 1] == value) {
    
     colcheck = "true"
     
