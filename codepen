@@ -297,7 +297,7 @@ let uniqueRow = flatten.filter(i => flatten.filter(j => i === j).length === 1)
 return uniqueRow[0]
 }
 
-let rowpencil = checkColPencil(arr, "h", 2, [1,2,6,8,9])
+let rowpencil = checkRowPencil(arr, "h", 2, [1,2,6,8,9])
 
 
 /*region pencil*/
@@ -369,10 +369,36 @@ return uniqueRegion[0]
 }
 
 let regionpencil = checkRegionPencil(arr, "h", 2, [1,2,6,8,9])
-console.log(regionpencil)
-console.log(rowpencil)
-console.log(colpencil)
-console.log(regionpencil == colpencil && colpencil == rowpencil)
 
+/*
+console.log(regionpencil == colpencil && colpencil == rowpencil)
+*/
 /*add hidden single to solved*/
-console.log(arr)
+
+/*hidden solver*/
+
+function hiddenSolve(puzzleString) {
+let hiddenarr = []
+let pencil = []
+for (let j = 0; j <= 80; j++) {
+
+
+  
+  let hiddenRegion = checkRegionPencil(puzzleString, coordinate[j][0], coordinate[j][1], puzzleString[j])
+let hiddenColumn = checkColPencil(puzzleString, coordinate[j][0], coordinate[j][1], puzzleString[j])
+let hiddenRow = checkRowPencil(puzzleString, coordinate[j][0], coordinate[j][1], puzzleString[j])
+/*
+console.log(coordinate[j] + " " + hiddenColumn + hiddenRegion + hiddenRow)
+*/
+let checkSolved = puzzleString[j].indexOf('solved')
+if (hiddenRegion == hiddenColumn && hiddenColumn == hiddenRow && hiddenRegion != undefined & hiddenColumn != undefined && hiddenRow != undefined && checkSolved == -1){
+ hiddenarr.push(coordinate[j])
+  hiddenarr.push(hiddenRow)
+ 
+}
+ 
+}
+  console.log(hiddenarr)
+}
+let hidden = hiddenSolve(arr)
+
