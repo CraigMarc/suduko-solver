@@ -196,27 +196,32 @@ if (pencilRegion != 'truebox' && pencilColumn != 'truecol' && pencilRow != 'true
 }
 
 /*solver*/
+/*
 let solved = puzzleString
 let arr = pencilArr(puzzleString)
+*/
+
 
 /*find naked singles*/
+function solveNaked(arr, puzzleString) {
 for (let j = 0; j <= 80; j++) {
  
  /*maybe check since added to the solved array*/
-   if (arr[j].length ==1 && arr[j] != 'solved') {
+  let checkSolved = arr[j].indexOf('solved')
+   if (arr[j].length ==1 && checkSolved == -1) {
     
-    let split = solved.split('')
+    let split = puzzleString.split('')
     
      
      let solved2 = split.splice(j, 1, arr[j][0])
    
      solved = split.join("")
-    
+    return solved
    }
   
      
  } 
-
+}
 /*
  console.log(solved[64])
 console.log(arr[64])
@@ -258,7 +263,7 @@ let uniqueCol = flatten.filter(i => flatten.filter(j => i === j).length === 1)
 return uniqueCol[0]
 }
 
-let colpencil = checkColPencil(arr, "h", 2, [1,2,6,8,9])
+let colpencil = checkColPencil(pencilArr(puzzleString), "h", 2, [1,2,6,8,9])
 
 
 /*rowpencil*/
@@ -297,7 +302,7 @@ let uniqueRow = flatten.filter(i => flatten.filter(j => i === j).length === 1)
 return uniqueRow[0]
 }
 
-let rowpencil = checkRowPencil(arr, "h", 2, [1,2,6,8,9])
+let rowpencil = checkRowPencil(pencilArr(puzzleString), "h", 2, [1,2,6,8,9])
 
 
 /*region pencil*/
@@ -368,7 +373,7 @@ let uniqueRegion = flatten.filter(i => flatten.filter(j => i === j).length === 1
 return uniqueRegion[0]
 }
 
-let regionpencil = checkRegionPencil(arr, "h", 2, [1,2,6,8,9])
+let regionpencil = checkRegionPencil(pencilArr(puzzleString), "h", 2, [1,2,6,8,9])
 
 /*
 console.log(regionpencil == colpencil && colpencil == rowpencil)
@@ -377,7 +382,7 @@ console.log(regionpencil == colpencil && colpencil == rowpencil)
 
 /*hidden solver*/
 
-function hiddenSolve(puzzleString) {
+function hiddenSolve(puzzleString, puzzleStringNew) {
 let hiddenarr = []
 let pencil = []
 for (let j = 0; j <= 80; j++) {
@@ -394,11 +399,36 @@ let checkSolved = puzzleString[j].indexOf('solved')
 if (hiddenRegion == hiddenColumn && hiddenColumn == hiddenRow && hiddenRegion != undefined & hiddenColumn != undefined && hiddenRow != undefined && checkSolved == -1){
  hiddenarr.push(coordinate[j])
   hiddenarr.push(hiddenRow)
- 
+  
+  
+ let split = puzzleStringNew.split('')
+    
+     
+     let solvedhidden = split.splice(j, 1, hiddenRow)
+   
+     solvedhidden = split.join("")
+    return solvedhidden
 }
  
 }
   console.log(hiddenarr)
 }
-let hidden = hiddenSolve(arr)
 
+
+
+
+
+/*solving sequence*/
+/*
+let solvedPencil = hiddenSolve(pencilArr(puzzleString))
+let newArr = pencilArr(solvedPencil)
+let newSol = solveNaked(newArr)
+
+let newArr2 = pencilArr(newArr)
+let newsol2 = solveNaked(newArr2)
+*/
+
+ let naked = solveNaked(pencilArr(puzzleString), puzzleString)
+ console.log(naked + 'naked')
+let hidden = hiddenSolve(pencilArr(puzzleString), naked)
+console.log(hidden + 'hidden')
