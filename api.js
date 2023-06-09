@@ -83,9 +83,14 @@ if (result == "not 81") {
   return res.json({ error: 'Expected puzzle to be 81 characters long' })
 }
 
-
-
-
+let solution = solver.solve(puzzleString)
+if (solution.indexOf('.') != -1) {
+  return res.json({ error: 'Puzzle cannot be solved' })
+}
+else {
+   return res.json({ solution: solution })
+}
+}
       
     });
 };
