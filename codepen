@@ -209,7 +209,7 @@ for (let j = 0; j <= 80; j++) {
  /*maybe check since added to the solved array*/
   let checkSolved = arr[j].indexOf('solved')
    if (arr[j].length ==1 && checkSolved == -1) {
-    console.log(arr[j][0] + 'nakedarr')
+    
     let split = puzzleString.split('')
     
      
@@ -400,7 +400,7 @@ let checkSolved = puzzleString[j].indexOf('solved')
 if (hiddenRegion == hiddenColumn && hiddenColumn == hiddenRow && hiddenRegion != undefined & hiddenColumn != undefined && hiddenRow != undefined && checkSolved == -1){
  hiddenarr.push(coordinate[j])
   hiddenarr.push(hiddenRow)
-  console.log(hiddenarr + "hiddenarr")
+  
   
  let split = puzzleStringNew.split('')
     
@@ -421,9 +421,11 @@ if (hiddenRegion == hiddenColumn && hiddenColumn == hiddenRow && hiddenRegion !=
 
 /*solving sequence*/
 
-
+/*save or throws an error*/
+/*
  let naked = solveNaked(pencilArr(puzzleString), puzzleString)
- console.log(naked + 'naked')
+
+
 let hidden = hiddenSolve(pencilArr(puzzleString), naked)
 console.log(hidden + 'hidden')
 let arr2 = pencilArr(hidden)
@@ -441,3 +443,56 @@ let naked4 = solveNaked(arr4, hidden3)
 console.log(naked4 + 'naked4')
 let hidden4 = hiddenSolve(arr4, naked4)
 console.log(hidden4 + 'hidden4')
+*/
+
+           
+ 
+ 
+ /*solve with pencilmarks*/
+function pencilSolution(puzzleString) {
+let newArr = pencilArr(puzzleString)
+let nakedSolution = solveNaked(newArr, puzzleString)  
+let hiddenSolution = hiddenSolve(newArr, nakedSolution) 
+
+let newArr2 = pencilArr(hiddenSolution)
+if (hiddenSolution == puzzleString) {
+  
+  finalSolution = hiddenSolution
+ return hiddenSolution
+}
+   let puzzleStringCompare = hiddenSolution
+   
+  pencilSolution(hiddenSolution)
+ 
+  return finalSolution
+}
+
+
+
+
+function arrSolution(puzzleString) {
+let newArr = pencilArr(puzzleString)
+let nakedSolution = solveNaked(newArr, puzzleString)  
+let hiddenSolution = hiddenSolve(newArr, nakedSolution) 
+let newArr2 = pencilArr(hiddenSolution)
+let nakedSolution2 = solveNaked(newArr2, nakedSolution)  
+let hiddenSolution2 = hiddenSolve(newArr2, nakedSolution2) 
+
+
+
+if (newArr.flat().join("") == newArr2.flat().join("")) {
+  
+ 
+ return pencilArr(hiddenSolution2)
+}
+   
+  arrSolution(hiddenSolution)
+ 
+  return pencilArr(hiddenSolution2)
+}
+
+let arrFinal = arrSolution(puzzleString)
+
+console.log(arrFinal)
+let pencilFinal = pencilSolution(puzzleString)
+console.log(pencilFinal + 'final')
