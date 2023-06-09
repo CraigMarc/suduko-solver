@@ -163,11 +163,11 @@ for (let i = 0; i < 9; i++) {
 /*solver*/
 coordinate = ['a1','a2','a3','a4','a5','a6','a7','a8','a9','b1','b2','b3','b4','b5','b6','b7','b8','b9','c1','c2','c3','c4','c5','c6','c7','c8','c9','d1','d2','d3','d4','d5','d6','d7','d8','d9','e1','e2','e3','e4','e5','e6','e7','e8','e9','f1','f2','f3','f4','f5','f6','f7','f8','f9','g1','g2','g3','g4','g5','g6','g7','g8','g9','h1','h2','h3','h4','h5','h6','h7','h8','h9','i1','i2','i3','i4','i5','i6','i7','i8','i9'] 
 
-
+/*
 let checkRegion = checkRegionPlacement(puzzleString, row, column, value)
 let checkColumn = checkColPlacement(puzzleString, row, column, value)
 let checkRow = checkRowPlacement(puzzleString, row, column, value)
-
+*/
 
 /*pencilfunction*/
 function pencilArr(puzzleString) {
@@ -209,18 +209,19 @@ for (let j = 0; j <= 80; j++) {
  /*maybe check since added to the solved array*/
   let checkSolved = arr[j].indexOf('solved')
    if (arr[j].length ==1 && checkSolved == -1) {
-    
+    console.log(arr[j][0] + 'nakedarr')
     let split = puzzleString.split('')
     
      
      let solved2 = split.splice(j, 1, arr[j][0])
    
-     solved = split.join("")
-    return solved
+    let solvedNaked = split.join("")
+    return solvedNaked
    }
   
      
  } 
+  return puzzleString
 }
 /*
  console.log(solved[64])
@@ -399,7 +400,7 @@ let checkSolved = puzzleString[j].indexOf('solved')
 if (hiddenRegion == hiddenColumn && hiddenColumn == hiddenRow && hiddenRegion != undefined & hiddenColumn != undefined && hiddenRow != undefined && checkSolved == -1){
  hiddenarr.push(coordinate[j])
   hiddenarr.push(hiddenRow)
-  
+  console.log(hiddenarr + "hiddenarr")
   
  let split = puzzleStringNew.split('')
     
@@ -411,7 +412,7 @@ if (hiddenRegion == hiddenColumn && hiddenColumn == hiddenRow && hiddenRegion !=
 }
  
 }
-  console.log(hiddenarr)
+ return puzzleStringNew
 }
 
 
@@ -419,16 +420,24 @@ if (hiddenRegion == hiddenColumn && hiddenColumn == hiddenRow && hiddenRegion !=
 
 
 /*solving sequence*/
-/*
-let solvedPencil = hiddenSolve(pencilArr(puzzleString))
-let newArr = pencilArr(solvedPencil)
-let newSol = solveNaked(newArr)
 
-let newArr2 = pencilArr(newArr)
-let newsol2 = solveNaked(newArr2)
-*/
 
  let naked = solveNaked(pencilArr(puzzleString), puzzleString)
  console.log(naked + 'naked')
 let hidden = hiddenSolve(pencilArr(puzzleString), naked)
 console.log(hidden + 'hidden')
+let arr2 = pencilArr(hidden)
+let naked2 = solveNaked(arr2, hidden)
+console.log(naked2 + "naked2")
+let hidden2 = hiddenSolve(arr2, naked2)
+console.log(hidden2 + 'hidden2')
+let arr3 = pencilArr(hidden2)
+let naked3 = solveNaked(arr3, hidden2)
+console.log(naked3 + 'naked3')
+let hidden3 = hiddenSolve(arr3, naked3)
+console.log(hidden3 + 'hidden3')
+let arr4 = pencilArr(hidden3)
+let naked4 = solveNaked(arr4, hidden3)
+console.log(naked4 + 'naked4')
+let hidden4 = hiddenSolve(arr4, naked4)
+console.log(hidden4 + 'hidden4')
