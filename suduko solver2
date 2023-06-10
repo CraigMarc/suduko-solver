@@ -364,7 +364,7 @@ f: [46,47,48,49,50,51,52,53,54],
 g: [55,56,57,58,59,60,61,62,63],
 h: [64,65,66,67,68,69,70,71,72],
 i: [73,74,75,76,77,78,79,80,81]}
- 
+ let finalSolution = ""
 
 let checkarray = []
 
@@ -501,7 +501,7 @@ let hiddenSolution = hiddenSolve(newArr, nakedSolution)
 let newArr2 = pencilArr(hiddenSolution)
 if (hiddenSolution == puzzleString) {
   
-  finalSolution = hiddenSolution
+finalSolution = hiddenSolution
  return hiddenSolution
 }
    let puzzleStringCompare = hiddenSolution
@@ -512,6 +512,7 @@ if (hiddenSolution == puzzleString) {
 }
 
 let pencilFinal = pencilSolution(puzzleString)
+console.log(pencilFinal)
 return pencilFinal
 
 
