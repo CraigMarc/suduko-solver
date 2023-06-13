@@ -211,23 +211,42 @@ let arr = pencilArr(puzzleString)
 
 /*find naked singles*/
 function solveNaked(arr, puzzleString) {
+let counterN = 0
+let solvedNaked = ''
+let newArr = []
 for (let j = 0; j <= 80; j++) {
  
  /*maybe check since added to the solved array*/
   let checkSolved = arr[j].indexOf('solved')
    if (arr[j].length ==1 && checkSolved == -1) {
+  counterN = counterN + 1
     
     let split = puzzleString.split('')
     
-     
+    
+    /* 
      let solved2 = split.splice(j, 1, arr[j][0])
+   */
+    const insert = (arr, index, newItem) => [
+  
+  ...arr.slice(0, index),
+  // inserted item
+  newItem,
+  
+  ...arr.slice(index + 1)
+]
+newArr = insert(split, j, arr[j][0])
+     
    
-    let solvedNaked = split.join("")
-    return solvedNaked
+    puzzleString = newArr.join("")
+   
    }
   
      
  } 
+ if (counterN > 0) {
+   return puzzleString
+ }
   return puzzleString
 }
 /*
@@ -439,8 +458,9 @@ if (hiddenRegion == hiddenColumn && hiddenColumn == hiddenRow && hiddenRegion !=
      
      let solvedhidden = split.splice(j, 1, hiddenRow)
    
-     solvedhidden = split.join("")
-    return solvedhidden
+     puzzleString = split.join("")
+  /*
+    return solvedhidden*/
 }
  
 }
@@ -455,11 +475,11 @@ if (hiddenRegion == hiddenColumn && hiddenColumn == hiddenRow && hiddenRegion !=
 
 /*save or throws an error*/
 /*
-let test = "769235418851496372432...95617456928339.....6.62.71...9......1945....4.37.4.3..6.."
+let test = ".69.35418851496372432178956174569283395842761628713549283657194516924837947381625"
 let arr = pencilArr(test)
  let naked = solveNaked(arr, test)
- 
-
+ console.log(arr)
+console.log(naked + 'naked')
 
 
 
@@ -483,18 +503,19 @@ let hidden4 = hiddenSolve(arr4, naked4)
 console.log(hidden4 + 'hidden4')
 */
 
-           
- 
+       
+ let hiddenSolution = ''
  function pencilSolution(puzzleString) {
- 
+
 let newArr = pencilArr(puzzleString)
 let nakedSolution = solveNaked(newArr, puzzleString)  
 let hiddenSolution = hiddenSolve(newArr, nakedSolution) 
-
+console.log(hiddenSolution)
+console.log(newArr)
 
 if (hiddenSolution == puzzleString) {
   
-  finalSolution = hiddenSolution
+ finalSolution = hiddenSolution
  return hiddenSolution
 }
    
@@ -518,9 +539,7 @@ let hiddenSolution = hiddenSolve(newArr, nakedSolution)
 let newArr2 = pencilArr(hiddenSolution)
 let nakedSolution2 = solveNaked(newArr2, nakedSolution)  
 let hiddenSolution2 = hiddenSolve(newArr2, nakedSolution2) 
-console.log(hiddenSolution2)
-console.log(newArr2)
-console.log(newArr2[42])
+
 
 
 if (newArr.flat().join("") == newArr2.flat().join("")) {
