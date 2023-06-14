@@ -1,4 +1,4 @@
-'use strict';
+
 
 const SudokuSolver = require('../controllers/sudoku-solver.js');
 
@@ -90,7 +90,7 @@ if (solution.indexOf('.') != -1) {
 else {
    return res.json({ solution: solution })
 }
-}
+})
       
-    });
+   
 };
