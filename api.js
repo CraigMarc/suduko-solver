@@ -14,7 +14,9 @@ module.exports = function (app) {
 if (!req.body.coordinate || !req.body.value || !req.body.puzzle){return res.json({ error: 'Required field(s) missing' })
   
 }
-    
+
+
+      
     let row = req.body.coordinate[0].toLowerCase()
     let column = req.body.coordinate[1]
 
@@ -37,6 +39,7 @@ let valCoor = /[a-iA-I]/
 if (valCoor.test(req.body.coordinate[0]) == false) {
   return res.json({ error: 'Invalid coordinate'})
 }
+
 let valNum = /[1-9]/
 if (valNum.test(req.body.coordinate[1]) == false){
   return res.json({ error: 'Invalid coordinate'})
@@ -48,6 +51,9 @@ if (valNum.test(req.body.value) == false){
   return res.json({ error: 'Invalid value'})
 }
 
+if (req.body.value.length > 1){
+  return res.json({ error: 'Invalid value'})
+}
 /*check placements*/
 
 let rowcheck = solver.checkRowPlacement(puzzleString, row, column, value)
