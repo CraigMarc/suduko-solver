@@ -41,7 +41,7 @@ i: [73,74,75,76,77,78,79,80,81]}
 let rowcheck = ""
 
 for (let i = 0; i < 9; i++) {
- console.log(puzzleString[(rww[row][i])-1])
+ 
   if (puzzleString[(rww[row][i])-1] == value) {
    
     rowcheck = "true"
@@ -158,7 +158,7 @@ i: [73,74,75,76,77,78,79,80,81]}
 let rowcheck = ""
 
 for (let i = 0; i < 9; i++) {
- console.log(puzzleString[(rww[row][i])-1])
+ 
   if (puzzleString[(rww[row][i])-1] == value) {
    
     rowcheck = "true"
